@@ -12,6 +12,7 @@
     "dev:api": "cd backend && CORS_ORIGIN=http://localhost:5173,http://localhost MONGODB_URI=mongodb://worklog:worklog@127.0.0.1:27017/worklog?authSource=worklog REDIS_URL=redis://127.0.0.1:6379 bun --watch src/index.ts",
     "dev:web": "npm run dev --workspace=@worklog/frontend",
     "build": "npm run build --workspace=@worklog/frontend",
+    "seed:entries": "cd backend && MONGODB_URI=mongodb://worklog:worklog@127.0.0.1:27017/worklog?authSource=worklog REDIS_URL=redis://127.0.0.1:6379 bun run seed:entries",
     "test": "npm exec vitest run -w @worklog/shared && npm exec vitest run -w @worklog/frontend && cd backend && bunx vitest run",
     "test:watch": "npm exec vitest -w @worklog/frontend",
     "docker:prod": "docker compose --profile prod up --build",
