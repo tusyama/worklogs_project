@@ -14,6 +14,7 @@ import {
   useGetWorkTypesQuery,
   useUpdateEntryMutation,
 } from "@/app/api";
+import { useDebounce } from "@/shared/hooks/useDebounce";
 import { DeleteEntryDialog } from "@/features/entries/DeleteEntryDialog";
 import { EntryModal } from "@/features/entries/EntryModal";
 import { WorkLogEntries } from "@/features/entries/WorkLogEntries";
@@ -25,6 +26,9 @@ export function WorkLogPage() {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [sort, setSort] = useState<EntrySortOrder>(DEFAULT_ENTRY_SORT);
+
+  const debouncedDateFrom = useDebounce(dateFrom);
+  const debouncedDateTo = useDebounce(dateTo);
 
   const dateRangeInvalid = Boolean(dateFrom && dateTo && dateFrom > dateTo);
 
@@ -116,8 +120,8 @@ export function WorkLogPage() {
       ) : null}
 
       <WorkLogEntries
-        dateFrom={dateFrom}
-        dateTo={dateTo}
+        dateFrom={debouncedDateFrom}
+        dateTo={debouncedDateTo}
         sort={sort}
         skip={dateRangeInvalid}
         resetKey={entriesResetKey}
