@@ -8,3 +8,6 @@ coverage
 package-lock.json
 bun.lock
 *.log
+
+# YAML: Prettier collapses multiline flow sequences (e.g. docker command arrays).
+docker-compose.yml

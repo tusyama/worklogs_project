@@ -14,9 +14,8 @@ export const StyledButton = styled.button<{
   padding: ${({ $size }) => ($size === "sm" ? "6px 12px" : "10px 16px")};
   font-size: ${({ theme, $size }) => ($size === "sm" ? theme.fontSizes.sm : theme.fontSizes.md)};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
-  transition:
-    background 0.15s,
-    border-color 0.15s;
+  /* prettier-ignore */
+  transition: background 0.15s, border-color 0.15s;
 
   &:disabled {
     opacity: 0.55;
