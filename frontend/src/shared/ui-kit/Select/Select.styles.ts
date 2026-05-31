@@ -7,9 +7,15 @@ export const StyledSelect = styled.select`
   border-radius: ${({ theme }) => theme.radii.md};
   background: ${({ theme }) => theme.colors.surface};
   color: ${({ theme }) => theme.colors.text};
+  cursor: pointer;
 
   &:focus {
     outline: 2px solid ${({ theme }) => theme.colors.primary};
     outline-offset: 1px;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 `;

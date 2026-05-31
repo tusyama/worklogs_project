@@ -17,4 +17,12 @@ export const StyledInput = styled.input`
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+  &[type="date"] {
+    cursor: pointer;
+
+    &::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+    }
+  }
 `;
