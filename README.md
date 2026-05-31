@@ -57,8 +57,8 @@ npm run docker:prod
 # или: docker compose --profile prod up --build
 ```
 
-Приложение: http://localhost  
-API: http://localhost/api/health
+- UI (nginx): **http://localhost:80**
+- API (прокси `/api` через nginx → `backend`): **http://localhost:80/api/health**; напрямую — **http://localhost:3000/api/health**
 
 Пересборка только frontend: `docker compose --profile prod build frontend && docker compose --profile prod up -d frontend`
 
