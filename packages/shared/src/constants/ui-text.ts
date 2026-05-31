@@ -13,8 +13,7 @@ export const UI_TEXT = {
     workTypesLoadError: "Не удалось загрузить справочник видов работ.",
     dateRangeInvalid: "Дата «по» не может быть раньше даты «с».",
     unknownStatus: "неизвестно",
-    saveEntryError:
-      "Не удалось сохранить запись. Проверьте данные и попробуйте снова.",
+    saveEntryError: "Не удалось сохранить запись. Проверьте данные и попробуйте снова.",
     deleteEntryError: "Не удалось удалить запись.",
     paginationPrev: "Назад",
     paginationNext: "Вперёд",

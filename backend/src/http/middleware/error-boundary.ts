@@ -19,16 +19,11 @@ export function withErrorBoundary(env: Env, handler: RouteHandler): RouteHandler
         const details = Object.fromEntries(
           Object.entries(err.errors).map(([key, issue]) => [key, issue.message]),
         );
-        return Response.json(
-          { message: API_MESSAGES.validationError, details },
-          { status: 400 },
-        );
+        return Response.json({ message: API_MESSAGES.validationError, details }, { status: 400 });
       }
       if (err instanceof MongooseError.CastError) {
         const details =
-          env.NODE_ENV === "production"
-            ? { path: err.path }
-            : { path: err.path, value: err.value };
+          env.NODE_ENV === "production" ? { path: err.path } : { path: err.path, value: err.value };
         return Response.json(
           {
             message: API_MESSAGES.validationError,

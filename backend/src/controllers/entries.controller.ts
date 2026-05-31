@@ -13,11 +13,7 @@ export function createEntriesController(service: EntriesService) {
   const list: RouteHandler = async (_req, ctx) => {
     const parsed = entriesListQuerySchema.safeParse(ctx.query);
     if (!parsed.success) {
-      throw new AppError(
-        400,
-        API_MESSAGES.invalidQueryParams,
-        parsed.error.flatten()
-      );
+      throw new AppError(400, API_MESSAGES.invalidQueryParams, parsed.error.flatten());
     }
     const result = await service.list(parsed.data);
     return Response.json(result);
@@ -26,11 +22,7 @@ export function createEntriesController(service: EntriesService) {
   const create: RouteHandler = async (_req, ctx) => {
     const parsed = workEntryCreateSchema.safeParse(ctx.body);
     if (!parsed.success) {
-      throw new AppError(
-        400,
-        API_MESSAGES.validationError,
-        parsed.error.flatten()
-      );
+      throw new AppError(400, API_MESSAGES.validationError, parsed.error.flatten());
     }
     const item = await service.create(parsed.data);
     return Response.json({ item }, { status: 201 });
@@ -43,11 +35,7 @@ export function createEntriesController(service: EntriesService) {
     }
     const bodyParsed = workEntryUpdateSchema.safeParse(ctx.body);
     if (!bodyParsed.success) {
-      throw new AppError(
-        400,
-        API_MESSAGES.validationError,
-        bodyParsed.error.flatten()
-      );
+      throw new AppError(400, API_MESSAGES.validationError, bodyParsed.error.flatten());
     }
     const item = await service.update(idParsed.data.id, bodyParsed.data);
     return Response.json({ item });

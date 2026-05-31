@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+out
+coverage
+.vitest
+*.tsbuildinfo
+package-lock.json
+bun.lock
+*.log

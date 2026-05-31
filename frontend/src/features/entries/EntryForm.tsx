@@ -33,7 +33,14 @@ function toEditDefaults(initial: WorkEntryDto): WorkEntryCreate {
   };
 }
 
-export function EntryForm({ workTypes, initial, submitError, onSubmit, onCancel, submitting }: EntryFormProps) {
+export function EntryForm({
+  workTypes,
+  initial,
+  submitError,
+  onSubmit,
+  onCancel,
+  submitting,
+}: EntryFormProps) {
   const unitOptions = useMemo(
     () => buildUnitOptions(workTypes.map((wt) => wt.defaultUnit)),
     [workTypes],

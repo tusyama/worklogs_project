@@ -11,7 +11,9 @@ export function watchSharedPackage(sharedSrc: string): Plugin {
   };
 
   const reload = (server: ViteDevServer, file: string) => {
-    console.log(`[worklog] @worklog/shared changed → full reload (${path.relative(sharedRoot, file)})`);
+    console.log(
+      `[worklog] @worklog/shared changed → full reload (${path.relative(sharedRoot, file)})`,
+    );
     server.moduleGraph.invalidateAll();
     server.ws.send({ type: "full-reload", path: "*" });
   };

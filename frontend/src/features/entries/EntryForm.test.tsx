@@ -42,7 +42,9 @@ describe("EntryForm", () => {
     await user.click(within(container).getByRole("button", { name: formText.save }));
 
     await waitFor(() => {
-      expect(within(container).getByText(VALIDATION_MESSAGES.performerRequired)).toBeInTheDocument();
+      expect(
+        within(container).getByText(VALIDATION_MESSAGES.performerRequired),
+      ).toBeInTheDocument();
     });
     expect(onSubmit).not.toHaveBeenCalled();
   });
@@ -68,11 +70,7 @@ describe("EntryForm", () => {
     const onSubmit = vi.fn();
 
     const { container } = renderWithProviders(
-      <EntryForm
-        workTypes={[WORK_TYPE_A, WORK_TYPE_B]}
-        onSubmit={onSubmit}
-        onCancel={vi.fn()}
-      />,
+      <EntryForm workTypes={[WORK_TYPE_A, WORK_TYPE_B]} onSubmit={onSubmit} onCancel={vi.fn()} />,
     );
 
     fillPerformer(container, "Сидоров С.С.");
@@ -114,11 +112,7 @@ describe("EntryForm", () => {
     const user = userEvent.setup();
 
     const { container } = renderWithProviders(
-      <EntryForm
-        workTypes={[WORK_TYPE_A, WORK_TYPE_B]}
-        onSubmit={vi.fn()}
-        onCancel={vi.fn()}
-      />,
+      <EntryForm workTypes={[WORK_TYPE_A, WORK_TYPE_B]} onSubmit={vi.fn()} onCancel={vi.fn()} />,
     );
 
     const unitSelect = getUnitSelect(container);
@@ -150,19 +144,12 @@ describe("EntryForm", () => {
     await user.click(within(container).getByRole("button", { name: formText.save }));
 
     await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
-    expect(onSubmit.mock.calls[0]?.[0]).toEqual(
-      expect.objectContaining({ unit: "п.м." }),
-    );
+    expect(onSubmit.mock.calls[0]?.[0]).toEqual(expect.objectContaining({ unit: "п.м." }));
   });
 
   it("disables submit while submitting", () => {
     renderWithProviders(
-      <EntryForm
-        workTypes={[WORK_TYPE_A]}
-        onSubmit={vi.fn()}
-        onCancel={vi.fn()}
-        submitting
-      />,
+      <EntryForm workTypes={[WORK_TYPE_A]} onSubmit={vi.fn()} onCancel={vi.fn()} submitting />,
     );
 
     expect(screen.getByRole("button", { name: formText.saving })).toBeDisabled();

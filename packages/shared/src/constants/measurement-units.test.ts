@@ -3,10 +3,7 @@ import { MEASUREMENT_UNITS, buildUnitOptions, isPresetUnit } from "./measurement
 
 describe("buildUnitOptions", () => {
   it("merges catalog units with defaults without duplicates", () => {
-    expect(buildUnitOptions(["м²", "п.м.", null, "м²"])).toEqual([
-      ...MEASUREMENT_UNITS,
-      "п.м.",
-    ]);
+    expect(buildUnitOptions(["м²", "п.м.", null, "м²"])).toEqual([...MEASUREMENT_UNITS, "п.м."]);
   });
 });
 

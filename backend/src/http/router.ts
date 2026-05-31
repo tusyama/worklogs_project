@@ -15,7 +15,11 @@ type RouterDeps = {
 
 type BunRouteRequest = Request & { params?: Record<string, string> };
 
-function adapt(api: (h: RouteHandler) => RouteHandler, handler: RouteHandler, paramKeys: string[] = []) {
+function adapt(
+  api: (h: RouteHandler) => RouteHandler,
+  handler: RouteHandler,
+  paramKeys: string[] = [],
+) {
   return (req: BunRouteRequest) => {
     const params: Record<string, string> = {};
     for (const key of paramKeys) {

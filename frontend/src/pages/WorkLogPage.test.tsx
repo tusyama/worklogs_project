@@ -26,7 +26,7 @@ const tableText = UI_TEXT.entriesTable;
 const deleteText = UI_TEXT.deleteDialog;
 
 function buildEntriesResult(
-  entries: typeof SAMPLE_ENTRY[] = [SAMPLE_ENTRY],
+  entries: (typeof SAMPLE_ENTRY)[] = [SAMPLE_ENTRY],
   overrides: Partial<{
     total: number;
     page: number;
@@ -55,8 +55,8 @@ function mockQueries({
   entriesLoading?: boolean;
   isError?: boolean;
   typesError?: boolean;
-  workTypes?: typeof WORK_TYPE_A[];
-  entries?: typeof SAMPLE_ENTRY[];
+  workTypes?: (typeof WORK_TYPE_A)[];
+  entries?: (typeof SAMPLE_ENTRY)[];
 } = {}) {
   vi.mocked(api.useGetWorkTypesQuery).mockReturnValue({
     data: typesError ? undefined : workTypes,
@@ -147,7 +147,9 @@ describe("WorkLogPage", () => {
     renderWithProviders(<WorkLogPage />);
 
     const dialog = await openCreateModal(user);
-    expect(within(dialog).getByRole("heading", { name: modalText.createTitle })).toBeInTheDocument();
+    expect(
+      within(dialog).getByRole("heading", { name: modalText.createTitle }),
+    ).toBeInTheDocument();
     expect(dialog.querySelector(`[name="${ENTRY_FORM_FIELD.workTypeId}"]`)).toBeInTheDocument();
   });
 
@@ -216,7 +218,9 @@ describe("WorkLogPage", () => {
     const dialog = screen.getByRole("dialog");
     expect(within(dialog).getByText(deleteText.title)).toBeInTheDocument();
     expect(
-      within(dialog).getByText(deleteText.body(SAMPLE_ENTRY.completedAt, SAMPLE_ENTRY.workTypeName)),
+      within(dialog).getByText(
+        deleteText.body(SAMPLE_ENTRY.completedAt, SAMPLE_ENTRY.workTypeName),
+      ),
     ).toBeInTheDocument();
   });
 
@@ -268,7 +272,9 @@ describe("WorkLogPage", () => {
     renderWithProviders(<WorkLogPage />);
 
     await user.click(screen.getByRole("button", { name: tableText.delete }));
-    await user.click(within(screen.getByRole("dialog")).getByRole("button", { name: deleteText.delete }));
+    await user.click(
+      within(screen.getByRole("dialog")).getByRole("button", { name: deleteText.delete }),
+    );
 
     await waitFor(() => {
       expect(deleteTrigger).toHaveBeenCalledTimes(1);

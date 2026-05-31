@@ -1,4 +1,9 @@
-import { ENTRY_CREATE_DEFAULTS, formatLocalDateOnly, type WorkEntryCreate, type WorkTypeDto } from "@worklog/shared";
+import {
+  ENTRY_CREATE_DEFAULTS,
+  formatLocalDateOnly,
+  type WorkEntryCreate,
+  type WorkTypeDto,
+} from "@worklog/shared";
 
 export function buildCreateDefaults(workTypes: WorkTypeDto[]): WorkEntryCreate {
   const first = workTypes[0];

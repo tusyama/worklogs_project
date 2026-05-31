@@ -5,8 +5,7 @@ import { watchSharedPackage } from "./vite-watch-shared";
 
 const repoRoot = path.resolve(__dirname, "..");
 const sharedSrc = path.resolve(repoRoot, "packages/shared/src");
-const apiProxyTarget =
-  process.env.VITE_API_PROXY_TARGET ?? "http://127.0.0.1:3000";
+const apiProxyTarget = process.env.VITE_API_PROXY_TARGET ?? "http://127.0.0.1:3000";
 
 export default defineConfig({
   plugins: [react(), watchSharedPackage(sharedSrc)],

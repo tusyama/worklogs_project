@@ -1,8 +1,4 @@
-import type {
-  EntriesListQuery,
-  EntriesListResult,
-  WorkTypeDto,
-} from "@worklog/shared";
+import type { EntriesListQuery, EntriesListResult, WorkTypeDto } from "@worklog/shared";
 import type Redis from "ioredis";
 import type { ICache } from "./cache.types";
 import { entriesListKey, KEYS, TTL } from "./keys";
@@ -67,7 +63,7 @@ export class Cache implements ICache {
           "MATCH",
           "entries:ver:*:list:*",
           "COUNT",
-          100
+          100,
         );
         cursor = next;
         if (keys.length > 0) {
@@ -81,7 +77,7 @@ export class Cache implements ICache {
 
   async getEntriesList(
     filter: EntriesListQuery,
-    version: number
+    version: number,
   ): Promise<EntriesListResult | null> {
     return this.safeGet<EntriesListResult>(entriesListKey(filter, version));
   }
@@ -89,13 +85,9 @@ export class Cache implements ICache {
   async setEntriesList(
     filter: EntriesListQuery,
     version: number,
-    result: EntriesListResult
+    result: EntriesListResult,
   ): Promise<void> {
-    await this.safeSet(
-      entriesListKey(filter, version),
-      result,
-      TTL.entriesList
-    );
+    await this.safeSet(entriesListKey(filter, version), result, TTL.entriesList);
   }
 
   private async safeGet<T>(key: string): Promise<T | null> {
@@ -108,11 +100,7 @@ export class Cache implements ICache {
     }
   }
 
-  private async safeSet(
-    key: string,
-    value: unknown,
-    ttlSeconds: number
-  ): Promise<void> {
+  private async safeSet(key: string, value: unknown, ttlSeconds: number): Promise<void> {
     try {
       await this.client.setex(key, ttlSeconds, JSON.stringify(value));
     } catch {

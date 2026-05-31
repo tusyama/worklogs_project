@@ -15,9 +15,7 @@ export function isValidDateString(value: string): boolean {
   const day = Number(match[3]);
   const date = new Date(Date.UTC(year, month - 1, day));
   return (
-    date.getUTCFullYear() === year &&
-    date.getUTCMonth() === month - 1 &&
-    date.getUTCDate() === day
+    date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day
   );
 }
 
@@ -67,11 +65,7 @@ export const workEntryCreateSchema = z.object({
       .max(1_000_000_000, VALIDATION_MESSAGES.volumeTooLarge),
   ),
   unit: z.string().trim().min(1, VALIDATION_MESSAGES.unitRequired).max(32),
-  performerName: z
-    .string()
-    .trim()
-    .min(1, VALIDATION_MESSAGES.performerRequired)
-    .max(200),
+  performerName: z.string().trim().min(1, VALIDATION_MESSAGES.performerRequired).max(200),
 });
 
 export const workEntryUpdateSchema = workEntryCreateSchema;

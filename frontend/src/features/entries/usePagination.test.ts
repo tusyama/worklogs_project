@@ -20,9 +20,7 @@ const defaultFilters = {
   skip: false,
 };
 
-function mockEntriesQuery(
-  overrides: Partial<ReturnType<typeof api.useGetEntriesQuery>> = {},
-) {
+function mockEntriesQuery(overrides: Partial<ReturnType<typeof api.useGetEntriesQuery>> = {}) {
   vi.mocked(api.useGetEntriesQuery).mockReturnValue({
     data: {
       items: [SAMPLE_ENTRY],
@@ -62,17 +60,15 @@ describe("usePagination", () => {
     });
 
     expect(result.current.page).toBe(2);
-    expect(api.useGetEntriesQuery).toHaveBeenLastCalledWith(
-      expect.objectContaining({ page: 2 }),
-      { skip: false },
-    );
+    expect(api.useGetEntriesQuery).toHaveBeenLastCalledWith(expect.objectContaining({ page: 2 }), {
+      skip: false,
+    });
   });
 
   it("resets page when filters change", () => {
-    const { result, rerender } = renderHook(
-      (filters) => usePagination(filters),
-      { initialProps: defaultFilters },
-    );
+    const { result, rerender } = renderHook((filters) => usePagination(filters), {
+      initialProps: defaultFilters,
+    });
 
     act(() => {
       result.current.setPage(3);
@@ -85,10 +81,9 @@ describe("usePagination", () => {
   });
 
   it("resets page when resetKey changes", () => {
-    const { result, rerender } = renderHook(
-      (filters) => usePagination(filters),
-      { initialProps: defaultFilters },
-    );
+    const { result, rerender } = renderHook((filters) => usePagination(filters), {
+      initialProps: defaultFilters,
+    });
 
     act(() => {
       result.current.setPage(2);

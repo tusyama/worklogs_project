@@ -66,7 +66,11 @@ export const WorkLogFilters = memo(function WorkLogFilters({
             <Text as="label" htmlFor={sortId} variant="caption">
               {wl.sortLabel}
             </Text>
-            <Select id={sortId} value={sort} onChange={(e) => onSortChange(e.target.value as EntrySortOrder)}>
+            <Select
+              id={sortId}
+              value={sort}
+              onChange={(e) => onSortChange(e.target.value as EntrySortOrder)}
+            >
               {ENTRY_SORT_VALUES.map((value) => (
                 <option key={value} value={value}>
                   {sortLabels[value]}

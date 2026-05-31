@@ -11,12 +11,7 @@ const dialogText = UI_TEXT.deleteDialog;
 describe("DeleteEntryDialog", () => {
   it("does not render dialog content when closed", () => {
     renderWithProviders(
-      <DeleteEntryDialog
-        entry={SAMPLE_ENTRY}
-        open={false}
-        onClose={vi.fn()}
-        onConfirm={vi.fn()}
-      />,
+      <DeleteEntryDialog entry={SAMPLE_ENTRY} open={false} onClose={vi.fn()} onConfirm={vi.fn()} />,
     );
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -24,12 +19,7 @@ describe("DeleteEntryDialog", () => {
 
   it("shows entry details when open", () => {
     renderWithProviders(
-      <DeleteEntryDialog
-        entry={SAMPLE_ENTRY}
-        open
-        onClose={vi.fn()}
-        onConfirm={vi.fn()}
-      />,
+      <DeleteEntryDialog entry={SAMPLE_ENTRY} open onClose={vi.fn()} onConfirm={vi.fn()} />,
     );
 
     expect(screen.getByRole("dialog")).toBeInTheDocument();
@@ -44,15 +34,12 @@ describe("DeleteEntryDialog", () => {
     const onClose = vi.fn();
 
     renderWithProviders(
-      <DeleteEntryDialog
-        entry={SAMPLE_ENTRY}
-        open
-        onClose={onClose}
-        onConfirm={vi.fn()}
-      />,
+      <DeleteEntryDialog entry={SAMPLE_ENTRY} open onClose={onClose} onConfirm={vi.fn()} />,
     );
 
-    await user.click(within(screen.getByRole("dialog")).getByRole("button", { name: dialogText.cancel }));
+    await user.click(
+      within(screen.getByRole("dialog")).getByRole("button", { name: dialogText.cancel }),
+    );
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
@@ -61,27 +48,18 @@ describe("DeleteEntryDialog", () => {
     const onConfirm = vi.fn();
 
     renderWithProviders(
-      <DeleteEntryDialog
-        entry={SAMPLE_ENTRY}
-        open
-        onClose={vi.fn()}
-        onConfirm={onConfirm}
-      />,
+      <DeleteEntryDialog entry={SAMPLE_ENTRY} open onClose={vi.fn()} onConfirm={onConfirm} />,
     );
 
-    await user.click(within(screen.getByRole("dialog")).getByRole("button", { name: dialogText.delete }));
+    await user.click(
+      within(screen.getByRole("dialog")).getByRole("button", { name: dialogText.delete }),
+    );
     expect(onConfirm).toHaveBeenCalledTimes(1);
   });
 
   it("disables confirm button while loading", () => {
     renderWithProviders(
-      <DeleteEntryDialog
-        entry={SAMPLE_ENTRY}
-        open
-        onClose={vi.fn()}
-        onConfirm={vi.fn()}
-        loading
-      />,
+      <DeleteEntryDialog entry={SAMPLE_ENTRY} open onClose={vi.fn()} onConfirm={vi.fn()} loading />,
     );
 
     expect(screen.getByRole("button", { name: dialogText.deleting })).toBeDisabled();

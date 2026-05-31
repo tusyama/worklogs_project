@@ -4,14 +4,14 @@
 
 ## Стек
 
-| Слой | Технологии | Зачем |
-|------|------------|--------|
-| Frontend | React 18, TypeScript, Vite 6, Redux Toolkit + RTK Query, styled-components 6, react-hook-form + Zod | SPA с серверным состоянием и общей валидацией с API |
-| UI | Мини ui-kit: примитивы + composite (`Table.*`, `Form.*`, `Modal.*`) | Переиспользуемые компоненты без дублирования разметки |
-| Backend | Bun 1.2 (`Bun.serve` + `routes`), слои controller → service → repository | Нативный HTTP без лишнего фреймворка |
-| БД | MongoDB 7, Mongoose 8 | Персистентное хранение, индексы по дате |
-| Кэш | Redis 7, модуль `cache` (Facade над ioredis в README) | Справочник видов работ + версионированный кэш списков записей |
-| Инфра | docker compose: mongo, redis, backend, frontend (nginx) | Запуск одной командой для проверяющего |
+| Слой     | Технологии                                                                                          | Зачем                                                         |
+| -------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Frontend | React 18, TypeScript, Vite 6, Redux Toolkit + RTK Query, styled-components 6, react-hook-form + Zod | SPA с серверным состоянием и общей валидацией с API           |
+| UI       | Мини ui-kit: примитивы + composite (`Table.*`, `Form.*`, `Modal.*`)                                 | Переиспользуемые компоненты без дублирования разметки         |
+| Backend  | Bun 1.2 (`Bun.serve` + `routes`), слои controller → service → repository                            | Нативный HTTP без лишнего фреймворка                          |
+| БД       | MongoDB 7, Mongoose 8                                                                               | Персистентное хранение, индексы по дате                       |
+| Кэш      | Redis 7, модуль `cache` (Facade над ioredis в README)                                               | Справочник видов работ + версионированный кэш списков записей |
+| Инфра    | docker compose: mongo, redis, backend, frontend (nginx)                                             | Запуск одной командой для проверяющего                        |
 
 Версии зафиксированы в lockfile / Docker-тегах (без beta/canary).
 

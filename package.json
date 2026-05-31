@@ -16,9 +16,12 @@
     "test": "npm exec vitest run -w @worklog/shared && npm exec vitest run -w @worklog/frontend && cd backend && bunx vitest run",
     "test:watch": "npm exec vitest -w @worklog/frontend",
     "docker:prod": "docker compose --profile prod up --build",
-    "start:docker": "docker compose --profile prod up -d --build"
+    "start:docker": "docker compose --profile prod up -d --build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "prettier": "^3.5.3"
   }
 }

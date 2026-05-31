@@ -5,7 +5,8 @@ export const StyledText = styled.p<{
   $variant: "body" | "caption" | "title";
 }>`
   margin: 0;
-  color: ${({ theme, $variant }) => ($variant === "caption" ? theme.colors.textMuted : theme.colors.text)};
+  color: ${({ theme, $variant }) =>
+    $variant === "caption" ? theme.colors.textMuted : theme.colors.text};
   font-size: ${({ theme, $variant }) => {
     if ($variant === "title") return theme.fontSizes.xl;
     if ($variant === "caption") return theme.fontSizes.sm;
@@ -15,7 +16,6 @@ export const StyledText = styled.p<{
     $variant === "title" ? theme.fontWeights.bold : theme.fontWeights.normal};
 
   ${media.down("md")} {
-    ${({ theme, $variant }) =>
-      $variant === "title" ? `font-size: ${theme.fontSizes.lg};` : ""}
+    ${({ theme, $variant }) => ($variant === "title" ? `font-size: ${theme.fontSizes.lg};` : "")}
   }
 `;

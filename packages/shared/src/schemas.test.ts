@@ -2,11 +2,7 @@ import { describe, expect, it } from "vitest";
 import { DEFAULT_ENTRY_SORT, ENTRY_SORT } from "./constants/sort";
 import { DEFAULT_ENTRIES_PAGE, DEFAULT_ENTRIES_PAGE_SIZE } from "./constants/pagination";
 import { VALIDATION_MESSAGES } from "./constants/validation-messages";
-import {
-  entriesListQuerySchema,
-  entryIdParamSchema,
-  workEntryCreateSchema,
-} from "./schemas";
+import { entriesListQuerySchema, entryIdParamSchema, workEntryCreateSchema } from "./schemas";
 
 describe("workEntryCreateSchema", () => {
   const valid = {

@@ -1,9 +1,4 @@
-import {
-  ENTRY_FORM_FIELD,
-  UNIT_SELECT_CUSTOM,
-  UI_TEXT,
-  isPresetUnit,
-} from "@worklog/shared";
+import { ENTRY_FORM_FIELD, UNIT_SELECT_CUSTOM, UI_TEXT, isPresetUnit } from "@worklog/shared";
 import { useId } from "react";
 import { FieldError, FieldWrapper } from "@/shared/ui-kit/Form/Form.styles";
 import { Input, Label, Select, Stack } from "@/shared/ui-kit";

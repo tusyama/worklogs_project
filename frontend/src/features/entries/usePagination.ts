@@ -15,7 +15,13 @@ export type EntriesListFilters = {
   resetKey?: number;
 };
 
-export function usePagination({ dateFrom, dateTo, sort, skip = false, resetKey = 0 }: EntriesListFilters) {
+export function usePagination({
+  dateFrom,
+  dateTo,
+  sort,
+  skip = false,
+  resetKey = 0,
+}: EntriesListFilters) {
   const [page, setPage] = useState(DEFAULT_ENTRIES_PAGE);
 
   useEffect(() => {

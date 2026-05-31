@@ -31,7 +31,8 @@ function Root({
   useEffect(() => {
     if (!open) return;
 
-    previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    previousFocusRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
@@ -48,7 +49,9 @@ function Root({
       }
       if (e.key !== "Tab" || !contentRef.current) return;
 
-      const focusable = Array.from(contentRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR));
+      const focusable = Array.from(
+        contentRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+      );
       if (!focusable.length) return;
 
       const first = focusable[0];
@@ -73,10 +76,7 @@ function Root({
   if (!open) return null;
 
   return createPortal(
-    <Overlay
-      role="presentation"
-      onClick={closeOnOverlayClick ? onClose : undefined}
-    >
+    <Overlay role="presentation" onClick={closeOnOverlayClick ? onClose : undefined}>
       <Content
         ref={contentRef}
         role="dialog"
