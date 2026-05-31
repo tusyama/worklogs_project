@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { media } from "../../theme/media";
 import { StyledStack } from "../../shared/ui-kit/Stack/Stack.styles";
+import { media } from "../../theme/media";
 
-export const FiltersLayout = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => theme.spacing.md};
-  align-items: flex-end;
-
+export const FiltersLayout = styled(StyledStack).attrs({
+  $direction: "row",
+  $gap: "md",
+  $align: "flex-end",
+  $wrap: true,
+})`
   ${media.down("md")} {
     flex-direction: column;
     align-items: stretch;

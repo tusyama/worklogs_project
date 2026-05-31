@@ -1,14 +1,17 @@
 import styled from "styled-components";
+import { StyledStack } from "../Stack/Stack.styles";
 import { media } from "../../../theme/media";
 
-export const Overlay = styled.div`
+export const Overlay = styled(StyledStack).attrs({
+  $direction: "row",
+  $gap: "sm",
+  $align: "center",
+  $justify: "center",
+})`
   position: fixed;
   inset: 0;
   background: ${({ theme }) => theme.colors.overlay};
   z-index: ${({ theme }) => theme.zIndex.modal};
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: ${({ theme }) => theme.spacing.lg};
 
   ${media.down("md")} {
@@ -17,15 +20,16 @@ export const Overlay = styled.div`
   }
 `;
 
-export const Content = styled.div`
+export const Content = styled(StyledStack).attrs({
+  $direction: "column",
+  $gap: "sm",
+})`
   background: ${({ theme }) => theme.colors.surface};
   border-radius: ${({ theme }) => theme.radii.lg};
   box-shadow: ${({ theme }) => theme.shadows.modal};
   width: 100%;
   max-width: 520px;
   max-height: 90vh;
-  display: flex;
-  flex-direction: column;
 
   ${media.down("md")} {
     max-width: none;
