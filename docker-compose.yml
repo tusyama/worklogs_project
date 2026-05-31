@@ -1,0 +1,140 @@
+name: worklog
+
+x-mongodb-uri: &mongodb_uri mongodb://${MONGO_APP_USER:-worklog}:${MONGO_APP_PASSWORD:-worklog}@mongo:27017/worklog?authSource=worklog
+
+services:
+  mongo:
+    image: mongo:7.0
+    command: ["--auth"]
+    ports:
+      - "127.0.0.1:27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: worklog
+      MONGO_APP_USER: ${MONGO_APP_USER:-worklog}
+      MONGO_APP_PASSWORD: ${MONGO_APP_PASSWORD:-worklog}
+    volumes:
+      - mongo_data:/data/db
+      - ./scripts/mongo-init:/docker-entrypoint-initdb.d:ro
+      - ./scripts/mongo-healthcheck.sh:/usr/local/bin/mongo-healthcheck.sh:ro
+    healthcheck:
+      test: ["CMD", "sh", "/usr/local/bin/mongo-healthcheck.sh"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+
+  redis:
+    image: redis:7.4-alpine
+    ports:
+      - "127.0.0.1:6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  backend-dev:
+    profiles: ["dev"]
+    image: oven/bun:1.2.21-alpine
+    working_dir: /app/backend
+    command: ["sh", "-c", "bun install && exec bun --watch src/index.ts"]
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      MONGODB_URI: *mongodb_uri
+      REDIS_URL: redis://redis:6379
+      PORT: "3000"
+      NODE_ENV: development
+      CORS_ORIGIN: http://localhost:5173,http://localhost
+    volumes:
+      - .:/app
+      - backend_node_modules:/app/backend/node_modules
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "bun",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  web-dev:
+    profiles: ["dev"]
+    image: node:22-alpine
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+      VITE_API_PROXY_TARGET: http://backend-dev:3000
+    volumes:
+      - .:/app
+      - root_node_modules:/app/node_modules
+      - frontend_node_modules:/app/frontend/node_modules
+    command:
+      [
+        "sh",
+        "-c",
+        "npm install && npm run dev --workspace=@worklog/frontend -- --host 0.0.0.0",
+      ]
+    depends_on:
+      backend-dev:
+        condition: service_healthy
+
+  backend:
+    profiles: ["prod"]
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      MONGODB_URI: *mongodb_uri
+      REDIS_URL: redis://redis:6379
+      PORT: "3000"
+      NODE_ENV: production
+      CORS_ORIGIN: http://localhost
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "bun",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+
+  frontend:
+    profiles: ["prod"]
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  mongo_data:
+  root_node_modules:
+  frontend_node_modules:
+  backend_node_modules:

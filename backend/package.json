@@ -1,0 +1,22 @@
+{
+  "name": "@worklog/backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@worklog/shared": "file:../packages/shared",
+    "ioredis": "^5.4.2",
+    "mongoose": "^8.9.5",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "~5.7.3",
+    "vitest": "^3.2.4"
+  }
+}
