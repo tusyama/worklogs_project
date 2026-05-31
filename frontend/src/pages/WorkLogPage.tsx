@@ -1,14 +1,13 @@
 import {
   DEFAULT_ENTRY_SORT,
   ENTRY_MODAL_MODE,
-  ENTRY_SORT_VALUES,
   UI_TEXT,
   type EntryModalMode,
   type EntrySortOrder,
   type WorkEntryCreate,
   type WorkEntryDto,
 } from "@worklog/shared";
-import { useId, useState } from "react";
+import { useCallback, useState } from "react";
 import {
   useCreateEntryMutation,
   useDeleteEntryMutation,
@@ -16,11 +15,10 @@ import {
   useUpdateEntryMutation,
 } from "../app/api";
 import { DeleteEntryDialog } from "../features/entries/DeleteEntryDialog";
-import { EntriesPagination } from "../features/entries/EntriesPagination";
-import { EntriesTable } from "../features/entries/EntriesTable";
 import { EntryModal } from "../features/entries/EntryModal";
-import { usePagination } from "../features/entries/usePagination";
-import { Button, Card, Inline, Input, Select, Spinner, Stack, Text } from "../shared/ui-kit";
+import { WorkLogEntries } from "../features/entries/WorkLogEntries";
+import { WorkLogFilters } from "../features/entries/WorkLogFilters";
+import { Stack, Text } from "../shared/ui-kit";
 
 export function WorkLogPage() {
   const [dateFrom, setDateFrom] = useState("");
@@ -29,29 +27,7 @@ export function WorkLogPage() {
 
   const dateRangeInvalid = Boolean(dateFrom && dateTo && dateFrom > dateTo);
 
-  const {
-    page,
-    setPage,
-    items: entries,
-    total,
-    totalPages,
-    hasMultiplePages,
-    isInitialLoading: entriesInitialLoading,
-    isFetching: entriesFetching,
-    isError,
-    error,
-  } = usePagination({
-    dateFrom,
-    dateTo,
-    sort,
-    skip: dateRangeInvalid,
-  });
-
-  const {
-    data: workTypes = [],
-    isLoading: typesLoading,
-    isError: typesError,
-  } = useGetWorkTypesQuery();
+  const { data: workTypes = [], isError: typesError } = useGetWorkTypesQuery();
 
   const [createEntry, { isLoading: creating }] = useCreateEntryMutation();
   const [updateEntry, { isLoading: updating }] = useUpdateEntryMutation();
@@ -63,29 +39,28 @@ export function WorkLogPage() {
   const [deleteTarget, setDeleteTarget] = useState<WorkEntryDto | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
-  const dateFromId = useId();
-  const dateToId = useId();
-  const sortId = useId();
+  const [entriesResetKey, setEntriesResetKey] = useState(0);
 
-  const openCreate = () => {
+  const openCreate = useCallback(() => {
     setSubmitError(null);
     setModalMode(ENTRY_MODAL_MODE.CREATE);
     setEditingEntry(null);
     setModalOpen(true);
-  };
+  }, []);
 
-  const openEdit = (entry: WorkEntryDto) => {
+  const openEdit = useCallback((entry: WorkEntryDto) => {
     setSubmitError(null);
     setModalMode(ENTRY_MODAL_MODE.EDIT);
     setEditingEntry(entry);
     setModalOpen(true);
-  };
+  }, []);
 
   const handleSubmit = async (data: WorkEntryCreate) => {
     try {
       setSubmitError(null);
       if (modalMode === ENTRY_MODAL_MODE.CREATE) {
         await createEntry(data).unwrap();
+        setEntriesResetKey((key) => key + 1);
       } else if (editingEntry) {
         await updateEntry({ id: editingEntry.id, body: data }).unwrap();
       } else {
@@ -109,8 +84,7 @@ export function WorkLogPage() {
     }
   };
 
-  const loading = typesLoading || entriesInitialLoading;
-  const { workLog: wl, sort: sortLabels } = UI_TEXT;
+  const wl = UI_TEXT.workLog;
   const canAddEntry = !typesError && workTypes.length > 0;
 
   return (
@@ -122,48 +96,17 @@ export function WorkLogPage() {
         <Text variant="caption">{wl.subtitle}</Text>
       </Stack>
 
-      <Card.Root>
-        <Card.Body>
-          <Inline gap="md" wrap align="flex-end">
-            <Stack gap="xs" style={{ minWidth: 160 }}>
-              <Text as="label" htmlFor={dateFromId} variant="caption">
-                {wl.dateFrom}
-              </Text>
-              <Input id={dateFromId} type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
-            </Stack>
-            <Stack gap="xs" style={{ minWidth: 160 }}>
-              <Text as="label" htmlFor={dateToId} variant="caption">
-                {wl.dateTo}
-              </Text>
-              <Input id={dateToId} type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
-            </Stack>
-            <Stack gap="xs" style={{ minWidth: 160 }}>
-              <Text as="label" htmlFor={sortId} variant="caption">
-                {wl.sortLabel}
-              </Text>
-              <Select
-                id={sortId}
-                value={sort}
-                onChange={(e) => setSort(e.target.value as EntrySortOrder)}
-              >
-                {ENTRY_SORT_VALUES.map((value) => (
-                  <option key={value} value={value}>
-                    {sortLabels[value]}
-                  </option>
-                ))}
-              </Select>
-            </Stack>
-            <Button $variant="primary" type="button" onClick={openCreate} disabled={!canAddEntry}>
-              {wl.addEntry}
-            </Button>
-          </Inline>
-          {dateRangeInvalid ? (
-            <Text variant="body" style={{ color: "#c62828", marginTop: 12 }}>
-              {wl.dateRangeInvalid}
-            </Text>
-          ) : null}
-        </Card.Body>
-      </Card.Root>
+      <WorkLogFilters
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+        sort={sort}
+        dateRangeInvalid={dateRangeInvalid}
+        canAddEntry={canAddEntry}
+        onDateFromChange={setDateFrom}
+        onDateToChange={setDateTo}
+        onSortChange={setSort}
+        onAddEntry={openCreate}
+      />
 
       {typesError ? (
         <Text variant="body" style={{ color: "#c62828" }}>
@@ -171,32 +114,15 @@ export function WorkLogPage() {
         </Text>
       ) : null}
 
-      {loading ? (
-        <Stack align="center" gap="md">
-          <Spinner />
-          <Text variant="caption">{wl.loading}</Text>
-        </Stack>
-      ) : isError ? (
-        <Text variant="body">
-          {wl.loadErrorPrefix}{" "}
-          {"status" in (error as object)
-            ? String((error as { status: unknown }).status)
-            : wl.unknownStatus}
-        </Text>
-      ) : dateRangeInvalid ? null : (
-        <Stack gap="md">
-          <EntriesTable items={entries} onEdit={openEdit} onDelete={setDeleteTarget} />
-          {hasMultiplePages ? (
-            <EntriesPagination
-              page={page}
-              totalPages={totalPages}
-              total={total}
-              loading={entriesFetching}
-              onPageChange={setPage}
-            />
-          ) : null}
-        </Stack>
-      )}
+      <WorkLogEntries
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+        sort={sort}
+        skip={dateRangeInvalid}
+        resetKey={entriesResetKey}
+        onEdit={openEdit}
+        onDelete={setDeleteTarget}
+      />
 
       <EntryModal
         open={modalOpen}

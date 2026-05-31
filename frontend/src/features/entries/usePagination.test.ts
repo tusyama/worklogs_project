@@ -84,6 +84,22 @@ describe("usePagination", () => {
     expect(result.current.page).toBe(1);
   });
 
+  it("resets page when resetKey changes", () => {
+    const { result, rerender } = renderHook(
+      (filters) => usePagination(filters),
+      { initialProps: defaultFilters },
+    );
+
+    act(() => {
+      result.current.setPage(2);
+    });
+    expect(result.current.page).toBe(2);
+
+    rerender({ ...defaultFilters, resetKey: 1 });
+
+    expect(result.current.page).toBe(1);
+  });
+
   it("skips query when skip is true", () => {
     renderHook(() => usePagination({ ...defaultFilters, skip: true }));
 

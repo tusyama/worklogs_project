@@ -65,8 +65,9 @@ function mockQueries({
   } as ReturnType<typeof api.useGetWorkTypesQuery>);
 
   vi.mocked(api.useGetEntriesQuery).mockReturnValue({
-    data: buildEntriesResult(entries),
+    data: entriesLoading ? undefined : buildEntriesResult(entries),
     isLoading: entriesLoading,
+    isFetching: false,
     isError,
     error: isError ? { status: 500 } : undefined,
   } as ReturnType<typeof api.useGetEntriesQuery>);
@@ -109,8 +110,8 @@ describe("WorkLogPage", () => {
     mockMutations();
   });
 
-  it("shows loading state", () => {
-    mockQueries({ typesLoading: true, entries: [] });
+  it("shows loading state while entries are loading", () => {
+    mockQueries({ entriesLoading: true, entries: [] });
     renderWithProviders(<WorkLogPage />);
 
     expect(screen.getByText(wl.loading)).toBeInTheDocument();

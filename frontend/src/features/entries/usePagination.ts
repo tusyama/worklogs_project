@@ -12,14 +12,15 @@ export type EntriesListFilters = {
   dateTo: string;
   sort: EntrySortOrder;
   skip?: boolean;
+  resetKey?: number;
 };
 
-export function usePagination({ dateFrom, dateTo, sort, skip = false }: EntriesListFilters) {
+export function usePagination({ dateFrom, dateTo, sort, skip = false, resetKey = 0 }: EntriesListFilters) {
   const [page, setPage] = useState(DEFAULT_ENTRIES_PAGE);
 
   useEffect(() => {
     setPage(DEFAULT_ENTRIES_PAGE);
-  }, [dateFrom, dateTo, sort]);
+  }, [dateFrom, dateTo, sort, resetKey]);
 
   const query = useMemo<EntriesListQuery>(
     () => ({
