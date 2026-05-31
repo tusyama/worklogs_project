@@ -1,4 +1,4 @@
-import type { EntriesListQuery, WorkEntryDto, WorkTypeDto } from "@worklog/shared";
+import type { EntriesListQuery, EntriesListResult, WorkEntryDto, WorkTypeDto } from "@worklog/shared";
 
 export interface ICache {
   ping(): Promise<boolean>;
@@ -7,6 +7,6 @@ export interface ICache {
   invalidateWorkTypesCatalog(): Promise<void>;
   getEntriesCacheVersion(): Promise<number | null>;
   bumpEntriesCacheVersion(): Promise<number>;
-  getEntriesList(filter: EntriesListQuery, version: number): Promise<WorkEntryDto[] | null>;
-  setEntriesList(filter: EntriesListQuery, version: number, items: WorkEntryDto[]): Promise<void>;
+  getEntriesList(filter: EntriesListQuery, version: number): Promise<EntriesListResult | null>;
+  setEntriesList(filter: EntriesListQuery, version: number, result: EntriesListResult): Promise<void>;
 }

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { DEFAULT_ENTRY_SORT, ENTRY_SORT } from "./constants/sort";
+import { DEFAULT_ENTRIES_PAGE, DEFAULT_ENTRIES_PAGE_SIZE } from "./constants/pagination";
 import { VALIDATION_MESSAGES } from "./constants/validation-messages";
 import {
   entriesListQuerySchema,
@@ -91,8 +92,12 @@ describe("workEntryCreateSchema", () => {
 });
 
 describe("entriesListQuerySchema", () => {
-  it("defaults sort to desc", () => {
-    expect(entriesListQuerySchema.parse({})).toEqual({ sort: DEFAULT_ENTRY_SORT });
+  it("defaults sort, page and pageSize", () => {
+    expect(entriesListQuerySchema.parse({})).toEqual({
+      sort: DEFAULT_ENTRY_SORT,
+      page: DEFAULT_ENTRIES_PAGE,
+      pageSize: DEFAULT_ENTRIES_PAGE_SIZE,
+    });
   });
 
   it("accepts date range and asc sort", () => {
@@ -106,7 +111,13 @@ describe("entriesListQuerySchema", () => {
       dateFrom: "2026-01-01",
       dateTo: "2026-12-31",
       sort: ENTRY_SORT.ASC,
+      page: DEFAULT_ENTRIES_PAGE,
+      pageSize: DEFAULT_ENTRIES_PAGE_SIZE,
     });
+  });
+
+  it("rejects pageSize above maximum", () => {
+    expect(entriesListQuerySchema.safeParse({ pageSize: 101 }).success).toBe(false);
   });
 
   it("rejects invalid calendar date", () => {

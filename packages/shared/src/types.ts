@@ -36,6 +36,16 @@ export type ItemsResponse<T> = {
   items: T[];
 };
 
+export type PaginatedItemsResponse<T> = {
+  items: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+};
+
+export type EntriesListResult = PaginatedItemsResponse<WorkEntryDto>;
+
 export type ItemResponse<T> = {
   item: T;
 };

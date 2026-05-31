@@ -3,6 +3,7 @@ export * from "./entry-defaults";
 export * from "./entry-form-fields";
 export * from "./measurement-units";
 export * from "./entry-modal-mode";
+export * from "./pagination";
 export * from "./sort";
 export * from "./ui-text";
 export * from "./validation-messages";

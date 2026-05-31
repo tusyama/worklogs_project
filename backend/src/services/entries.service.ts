@@ -15,11 +15,11 @@ export class EntriesService {
       if (cached) return cached;
     }
 
-    const items = await this.repo.findFiltered(filter);
+    const result = await this.repo.findFiltered(filter);
     if (version !== null) {
-      await this.cache.setEntriesList(filter, version, items);
+      await this.cache.setEntriesList(filter, version, result);
     }
-    return items;
+    return result;
   }
 
   async create(input: WorkEntryCreate) {

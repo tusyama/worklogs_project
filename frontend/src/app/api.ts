@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type {
   EntriesListQuery,
+  EntriesListResult,
   ItemResponse,
   ItemsResponse,
   WorkEntryCreate,
@@ -21,12 +22,11 @@ export const worklogApi = createApi({
       transformResponse: (res: ItemsResponse<WorkTypeDto>) => res.items,
       providesTags: ["WorkType"],
     }),
-    getEntries: builder.query<WorkEntryDto[], EntriesListQuery>({
+    getEntries: builder.query<EntriesListResult, EntriesListQuery>({
       query: (params) => ({
         url: "/entries",
         params,
       }),
-      transformResponse: (res: ItemsResponse<WorkEntryDto>) => res.items,
       providesTags: (_result, _err, arg) => [{ type: "Entry", id: JSON.stringify(arg) }],
     }),
     createEntry: builder.mutation<WorkEntryDto, WorkEntryCreate>({

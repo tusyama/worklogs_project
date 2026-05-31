@@ -25,6 +25,24 @@ const modalText = UI_TEXT.entryModal;
 const tableText = UI_TEXT.entriesTable;
 const deleteText = UI_TEXT.deleteDialog;
 
+function buildEntriesResult(
+  entries: typeof SAMPLE_ENTRY[] = [SAMPLE_ENTRY],
+  overrides: Partial<{
+    total: number;
+    page: number;
+    pageSize: number;
+    totalPages: number;
+  }> = {},
+) {
+  return {
+    items: entries,
+    total: overrides.total ?? entries.length,
+    page: overrides.page ?? 1,
+    pageSize: overrides.pageSize ?? 10,
+    totalPages: overrides.totalPages ?? 1,
+  };
+}
+
 function mockQueries({
   typesLoading = false,
   entriesLoading = false,
@@ -47,7 +65,7 @@ function mockQueries({
   } as ReturnType<typeof api.useGetWorkTypesQuery>);
 
   vi.mocked(api.useGetEntriesQuery).mockReturnValue({
-    data: entries,
+    data: buildEntriesResult(entries),
     isLoading: entriesLoading,
     isError,
     error: isError ? { status: 500 } : undefined,
@@ -255,5 +273,22 @@ describe("WorkLogPage", () => {
       expect(deleteTrigger).toHaveBeenCalledTimes(1);
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
+  });
+
+  it("shows pagination controls when there are multiple pages", () => {
+    mockQueries({
+      entries: [SAMPLE_ENTRY],
+      // override via custom mock
+    });
+    vi.mocked(api.useGetEntriesQuery).mockReturnValue({
+      data: buildEntriesResult([SAMPLE_ENTRY], { total: 25, totalPages: 3 }),
+      isLoading: false,
+      isError: false,
+    } as ReturnType<typeof api.useGetEntriesQuery>);
+
+    renderWithProviders(<WorkLogPage />);
+
+    expect(screen.getByRole("button", { name: wl.paginationNext })).toBeInTheDocument();
+    expect(screen.getByText(wl.paginationSummary(1, 3, 25))).toBeInTheDocument();
   });
 });

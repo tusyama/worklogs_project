@@ -16,6 +16,10 @@ export const UI_TEXT = {
     saveEntryError:
       "Не удалось сохранить запись. Проверьте данные и попробуйте снова.",
     deleteEntryError: "Не удалось удалить запись.",
+    paginationPrev: "Назад",
+    paginationNext: "Вперёд",
+    paginationSummary: (page: number, totalPages: number, total: number) =>
+      `Страница ${page} из ${totalPages} · всего ${total}`,
   },
   sort: {
     [ENTRY_SORT.DESC]: "Сначала новые",

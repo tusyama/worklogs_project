@@ -3,23 +3,23 @@ import {
   ENTRY_MODAL_MODE,
   ENTRY_SORT_VALUES,
   UI_TEXT,
-  type EntriesListQuery,
   type EntryModalMode,
   type EntrySortOrder,
   type WorkEntryCreate,
   type WorkEntryDto,
 } from "@worklog/shared";
-import { useId, useMemo, useState } from "react";
+import { useId, useState } from "react";
 import {
   useCreateEntryMutation,
   useDeleteEntryMutation,
-  useGetEntriesQuery,
   useGetWorkTypesQuery,
   useUpdateEntryMutation,
 } from "../app/api";
 import { DeleteEntryDialog } from "../features/entries/DeleteEntryDialog";
+import { EntriesPagination } from "../features/entries/EntriesPagination";
 import { EntriesTable } from "../features/entries/EntriesTable";
 import { EntryModal } from "../features/entries/EntryModal";
+import { usePagination } from "../features/entries/usePagination";
 import { Button, Card, Inline, Input, Select, Spinner, Stack, Text } from "../shared/ui-kit";
 
 export function WorkLogPage() {
@@ -29,23 +29,29 @@ export function WorkLogPage() {
 
   const dateRangeInvalid = Boolean(dateFrom && dateTo && dateFrom > dateTo);
 
-  const query = useMemo<EntriesListQuery>(
-    () => ({
-      ...(dateFrom ? { dateFrom } : {}),
-      ...(dateTo ? { dateTo } : {}),
-      sort,
-    }),
-    [dateFrom, dateTo, sort],
-  );
+  const {
+    page,
+    setPage,
+    items: entries,
+    total,
+    totalPages,
+    hasMultiplePages,
+    isInitialLoading: entriesInitialLoading,
+    isFetching: entriesFetching,
+    isError,
+    error,
+  } = usePagination({
+    dateFrom,
+    dateTo,
+    sort,
+    skip: dateRangeInvalid,
+  });
 
   const {
     data: workTypes = [],
     isLoading: typesLoading,
     isError: typesError,
   } = useGetWorkTypesQuery();
-  const { data: entries = [], isLoading: entriesLoading, isError, error } = useGetEntriesQuery(query, {
-    skip: dateRangeInvalid,
-  });
 
   const [createEntry, { isLoading: creating }] = useCreateEntryMutation();
   const [updateEntry, { isLoading: updating }] = useUpdateEntryMutation();
@@ -103,7 +109,7 @@ export function WorkLogPage() {
     }
   };
 
-  const loading = typesLoading || entriesLoading;
+  const loading = typesLoading || entriesInitialLoading;
   const { workLog: wl, sort: sortLabels } = UI_TEXT;
   const canAddEntry = !typesError && workTypes.length > 0;
 
@@ -178,7 +184,18 @@ export function WorkLogPage() {
             : wl.unknownStatus}
         </Text>
       ) : dateRangeInvalid ? null : (
-        <EntriesTable items={entries} onEdit={openEdit} onDelete={setDeleteTarget} />
+        <Stack gap="md">
+          <EntriesTable items={entries} onEdit={openEdit} onDelete={setDeleteTarget} />
+          {hasMultiplePages ? (
+            <EntriesPagination
+              page={page}
+              totalPages={totalPages}
+              total={total}
+              loading={entriesFetching}
+              onPageChange={setPage}
+            />
+          ) : null}
+        </Stack>
       )}
 
       <EntryModal

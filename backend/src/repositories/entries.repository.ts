@@ -1,7 +1,9 @@
 import {
   API_MESSAGES,
+  computeTotalPages,
   mongoSortDirection,
   type EntriesListQuery,
+  type EntriesListResult,
   type WorkEntryCreate,
   type WorkEntryUpdate,
 } from "@worklog/shared";
@@ -13,7 +15,7 @@ import { endOfDayUtc, parseDateOnlyToUtc } from "../utils/dates";
 import { toWorkEntryDto } from "../utils/mappers";
 
 export class EntriesRepository {
-  async findFiltered(filter: EntriesListQuery) {
+  async findFiltered(filter: EntriesListQuery): Promise<EntriesListResult> {
     const query: Record<string, unknown> = {};
     if (filter.dateFrom || filter.dateTo) {
       query.completedAt = {};
@@ -26,12 +28,25 @@ export class EntriesRepository {
     }
 
     const sortDir = mongoSortDirection(filter.sort);
-    const docs = await WorkEntryModel.find(query)
-      .sort({ completedAt: sortDir })
-      .populate("workTypeId", "name")
-      .lean();
+    const skip = (filter.page - 1) * filter.pageSize;
 
-    return docs.map((d) => toWorkEntryDto(d as Parameters<typeof toWorkEntryDto>[0]));
+    const [total, docs] = await Promise.all([
+      WorkEntryModel.countDocuments(query),
+      WorkEntryModel.find(query)
+        .sort({ completedAt: sortDir })
+        .skip(skip)
+        .limit(filter.pageSize)
+        .populate("workTypeId", "name")
+        .lean(),
+    ]);
+
+    return {
+      items: docs.map((d) => toWorkEntryDto(d as Parameters<typeof toWorkEntryDto>[0])),
+      total,
+      page: filter.page,
+      pageSize: filter.pageSize,
+      totalPages: computeTotalPages(total, filter.pageSize),
+    };
   }
 
   async create(input: WorkEntryCreate) {

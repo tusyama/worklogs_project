@@ -1,4 +1,9 @@
 import { z } from "zod";
+import {
+  DEFAULT_ENTRIES_PAGE,
+  DEFAULT_ENTRIES_PAGE_SIZE,
+  MAX_ENTRIES_PAGE_SIZE,
+} from "./constants/pagination";
 import { DEFAULT_ENTRY_SORT, ENTRY_SORT_VALUES } from "./constants/sort";
 import { VALIDATION_MESSAGES } from "./constants/validation-messages";
 
@@ -28,6 +33,14 @@ export const entriesListQuerySchema = z
     dateFrom: dateString.optional(),
     dateTo: dateString.optional(),
     sort: z.enum(ENTRY_SORT_VALUES).optional().default(DEFAULT_ENTRY_SORT),
+    page: z.coerce.number().int().min(1).optional().default(DEFAULT_ENTRIES_PAGE),
+    pageSize: z.coerce
+      .number()
+      .int()
+      .min(1)
+      .max(MAX_ENTRIES_PAGE_SIZE)
+      .optional()
+      .default(DEFAULT_ENTRIES_PAGE_SIZE),
   })
   .superRefine((value, ctx) => {
     if (value.dateFrom && value.dateTo && value.dateFrom > value.dateTo) {
