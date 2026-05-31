@@ -10,7 +10,7 @@ import {
 } from "@worklog/shared";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Form, Input, Select, Text } from "../../shared/ui-kit";
+import { Button, Form, Input, Select, Text } from "@/shared/ui-kit";
 import { buildCreateDefaults } from "./entry-form.defaults";
 import { UnitField } from "./UnitField";
 

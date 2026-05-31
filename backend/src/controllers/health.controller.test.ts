@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { createHealthController } from "./health.controller";
-import type { HealthService } from "../services/health.service";
+import type { HealthService } from "@/services/health.service";
 
 describe("createHealthController", () => {
   it("returns 200 when dependencies are healthy", async () => {

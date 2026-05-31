@@ -1,8 +1,8 @@
 import { API_MESSAGES } from "@worklog/shared";
 import { Error as MongooseError } from "mongoose";
 import { describe, expect, it, vi } from "vitest";
-import type { Env } from "../../config/env";
-import { AppError } from "../../errors/app-error";
+import type { Env } from "@/config/env";
+import { AppError } from "@/errors/app-error";
 import { withErrorBoundary } from "./error-boundary";
 
 const env = { NODE_ENV: "test" } as Env;

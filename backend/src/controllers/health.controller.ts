@@ -1,5 +1,5 @@
-import type { HealthService } from "../services/health.service";
-import type { RouteHandler } from "../http/middleware/types";
+import type { HealthService } from "@/services/health.service";
+import type { RouteHandler } from "@/http/middleware/types";
 
 export function createHealthController(healthService: HealthService): RouteHandler {
   return async () => {

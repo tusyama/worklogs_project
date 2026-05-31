@@ -2,13 +2,13 @@ import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ENTRY_FORM_FIELD, UI_TEXT } from "@worklog/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import * as api from "../app/api";
-import { fillPerformer, submitForm } from "../test/form-helpers";
-import { SAMPLE_ENTRY, WORK_TYPE_A } from "../test/fixtures";
-import { renderWithProviders } from "../test/render";
+import * as api from "@/app/api";
+import { fillPerformer, submitForm } from "@/test/form-helpers";
+import { SAMPLE_ENTRY, WORK_TYPE_A } from "@/test/fixtures";
+import { renderWithProviders } from "@/test/render";
 import { WorkLogPage } from "./WorkLogPage";
 
-vi.mock("../app/api", async (importOriginal) => {
+vi.mock("@/app/api", async (importOriginal) => {
   const actual = await importOriginal<typeof api>();
   return {
     ...actual,

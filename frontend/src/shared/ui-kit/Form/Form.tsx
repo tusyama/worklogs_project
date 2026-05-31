@@ -1,6 +1,6 @@
 import { cloneElement, isValidElement, useId, type FormHTMLAttributes, type ReactNode } from "react";
-import { Label } from "../Label";
-import { Stack } from "../Stack";
+import { Label } from "@/shared/ui-kit/Label";
+import { Stack } from "@/shared/ui-kit/Stack";
 import { ActionsRow, FieldError, FieldHint, FieldWrapper, StyledForm } from "./Form.styles";
 
 function Root({ children, ...rest }: FormHTMLAttributes<HTMLFormElement>) {

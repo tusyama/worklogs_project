@@ -7,9 +7,9 @@ import {
   VALIDATION_MESSAGES,
 } from "@worklog/shared";
 import { describe, expect, it, vi } from "vitest";
-import { fillPerformer, setVolume, submitForm } from "../../test/form-helpers";
-import { SAMPLE_ENTRY, WORK_TYPE_A, WORK_TYPE_B } from "../../test/fixtures";
-import { renderWithProviders } from "../../test/render";
+import { fillPerformer, setVolume, submitForm } from "@/test/form-helpers";
+import { SAMPLE_ENTRY, WORK_TYPE_A, WORK_TYPE_B } from "@/test/fixtures";
+import { renderWithProviders } from "@/test/render";
 import { EntryForm } from "./EntryForm";
 
 const formText = UI_TEXT.entryForm;

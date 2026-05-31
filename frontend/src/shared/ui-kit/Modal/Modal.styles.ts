@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { StyledStack } from "../Stack/Stack.styles";
-import { media } from "../../../theme/media";
+import { StyledStack } from "@/shared/ui-kit/Stack/Stack.styles";
+import { media } from "@/theme/media";
 
 export const Overlay = styled(StyledStack).attrs({
   $direction: "row",

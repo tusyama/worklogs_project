@@ -10,7 +10,9 @@
     "noEmit": true,
     "isolatedModules": true,
     "resolveJsonModule": true,
+    "baseUrl": ".",
     "paths": {
+      "@/*": ["./src/*"],
       "@worklog/shared": ["../packages/shared/src/index.ts"]
     }
   },

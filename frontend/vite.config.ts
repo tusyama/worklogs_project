@@ -12,6 +12,7 @@ export default defineConfig({
   plugins: [react(), watchSharedPackage(sharedSrc)],
   resolve: {
     alias: {
+      "@": path.resolve(__dirname, "src"),
       "@worklog/shared": path.resolve(sharedSrc, "index.ts"),
     },
   },

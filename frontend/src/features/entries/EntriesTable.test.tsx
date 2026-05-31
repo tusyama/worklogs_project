@@ -2,9 +2,9 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UI_TEXT } from "@worklog/shared";
 import { beforeEach, afterEach, describe, expect, it, vi } from "vitest";
-import * as useIsMobileModule from "../../shared/hooks/useIsMobile";
-import { formatEntryDate, SAMPLE_ENTRY } from "../../test/fixtures";
-import { renderWithProviders } from "../../test/render";
+import * as useIsMobileModule from "@/shared/hooks/useIsMobile";
+import { formatEntryDate, SAMPLE_ENTRY } from "@/test/fixtures";
+import { renderWithProviders } from "@/test/render";
 import { EntriesTable } from "./EntriesTable";
 
 const tableText = UI_TEXT.entriesTable;

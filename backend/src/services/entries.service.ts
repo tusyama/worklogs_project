@@ -1,6 +1,6 @@
 import type { EntriesListQuery, WorkEntryCreate, WorkEntryUpdate } from "@worklog/shared";
-import type { ICache } from "../redis/cache.types";
-import { EntriesRepository } from "../repositories/entries.repository";
+import type { ICache } from "@/redis/cache.types";
+import { EntriesRepository } from "@/repositories/entries.repository";
 
 export class EntriesService {
   constructor(

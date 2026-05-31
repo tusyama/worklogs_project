@@ -5,9 +5,9 @@ import {
   workEntryCreateSchema,
   workEntryUpdateSchema,
 } from "@worklog/shared";
-import { AppError } from "../errors/app-error";
-import type { EntriesService } from "../services/entries.service";
-import type { RouteHandler } from "../http/middleware/types";
+import { AppError } from "@/errors/app-error";
+import type { EntriesService } from "@/services/entries.service";
+import type { RouteHandler } from "@/http/middleware/types";
 
 export function createEntriesController(service: EntriesService) {
   const list: RouteHandler = async (_req, ctx) => {

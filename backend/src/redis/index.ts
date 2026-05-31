@@ -1,4 +1,4 @@
-import type { Env } from "../config/env";
+import type { Env } from "@/config/env";
 import { Cache } from "./cache";
 import { createRedisClient } from "./client";
 import type Redis from "ioredis";

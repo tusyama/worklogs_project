@@ -2,8 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { render, type RenderOptions } from "@testing-library/react";
 import { useMemo, type ReactElement, type ReactNode } from "react";
 import { Provider } from "react-redux";
-import { worklogApi } from "../app/api";
-import { ThemeProvider } from "../theme/ThemeProvider";
+import { worklogApi } from "@/app/api";
+import { ThemeProvider } from "@/theme/ThemeProvider";
 
 export function createTestStore() {
   return configureStore({

@@ -1,5 +1,5 @@
-import { pingMongo } from "../db/mongoose";
-import type { ICache } from "../redis/cache.types";
+import { pingMongo } from "@/db/mongoose";
+import type { ICache } from "@/redis/cache.types";
 
 export class HealthService {
   constructor(private readonly cache: ICache) {}

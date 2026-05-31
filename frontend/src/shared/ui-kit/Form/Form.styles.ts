@@ -1,8 +1,11 @@
+import type { FormHTMLAttributes } from "react";
 import styled from "styled-components";
-import { StyledStack } from "../Stack/Stack.styles";
-import { media } from "../../../theme/media";
+import { StyledStack } from "@/shared/ui-kit/Stack/Stack.styles";
+import { media } from "@/theme/media";
 
-export const StyledForm = styled(StyledStack).attrs({
+export const StyledForm: React.ComponentType<FormHTMLAttributes<HTMLFormElement>> = styled(
+  StyledStack,
+).attrs({
   as: "form",
   $direction: "column",
   $gap: "md",

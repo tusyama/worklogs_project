@@ -1,6 +1,6 @@
 import type { WorkEntryDto, WorkTypeDto } from "@worklog/shared";
-import type { WorkEntryDocument } from "../models/work-entry.model";
-import type { WorkTypeDocument } from "../models/work-type.model";
+import type { WorkEntryDocument } from "@/models/work-entry.model";
+import type { WorkTypeDocument } from "@/models/work-type.model";
 import { formatDateOnly } from "./dates";
 
 export function toWorkTypeDto(doc: WorkTypeDocument): WorkTypeDto {

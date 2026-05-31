@@ -8,11 +8,11 @@ import {
   type WorkEntryUpdate,
 } from "@worklog/shared";
 import { Types } from "mongoose";
-import { AppError } from "../errors/app-error";
-import { WorkEntryModel } from "../models/work-entry.model";
-import { WorkTypeModel } from "../models/work-type.model";
-import { endOfDayUtc, parseDateOnlyToUtc } from "../utils/dates";
-import { toWorkEntryDto } from "../utils/mappers";
+import { AppError } from "@/errors/app-error";
+import { WorkEntryModel } from "@/models/work-entry.model";
+import { WorkTypeModel } from "@/models/work-type.model";
+import { endOfDayUtc, parseDateOnlyToUtc } from "@/utils/dates";
+import { toWorkEntryDto } from "@/utils/mappers";
 
 export class EntriesRepository {
   async findFiltered(filter: EntriesListQuery): Promise<EntriesListResult> {

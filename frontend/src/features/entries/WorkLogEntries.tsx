@@ -2,7 +2,7 @@ import { UI_TEXT, type EntrySortOrder, type WorkEntryDto } from "@worklog/shared
 import { EntriesPagination } from "./EntriesPagination";
 import { EntriesTable } from "./EntriesTable";
 import { usePagination } from "./usePagination";
-import { Spinner, Stack, Text } from "../../shared/ui-kit";
+import { Spinner, Stack, Text } from "@/shared/ui-kit";
 
 type WorkLogEntriesProps = {
   dateFrom: string;

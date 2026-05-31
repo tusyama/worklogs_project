@@ -6,7 +6,7 @@ import {
   type WorkEntryDto,
   type WorkTypeDto,
 } from "@worklog/shared";
-import { Inline, Modal } from "../../shared/ui-kit";
+import { Inline, Modal } from "@/shared/ui-kit";
 import { EntryForm } from "./EntryForm";
 
 type EntryModalProps = {

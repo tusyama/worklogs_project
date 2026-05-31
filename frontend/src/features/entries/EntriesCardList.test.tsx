@@ -2,8 +2,8 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UI_TEXT } from "@worklog/shared";
 import { describe, expect, it, vi } from "vitest";
-import { formatEntryDate, SAMPLE_ENTRY } from "../../test/fixtures";
-import { renderWithProviders } from "../../test/render";
+import { formatEntryDate, SAMPLE_ENTRY } from "@/test/fixtures";
+import { renderWithProviders } from "@/test/render";
 import { EntriesCardList } from "./EntriesCardList";
 
 const tableText = UI_TEXT.entriesTable;

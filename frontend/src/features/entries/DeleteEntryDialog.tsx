@@ -1,5 +1,5 @@
 import { UI_TEXT, type WorkEntryDto } from "@worklog/shared";
-import { Button, Form, Inline, Modal, Text } from "../../shared/ui-kit";
+import { Button, Form, Inline, Modal, Text } from "@/shared/ui-kit";
 
 type DeleteEntryDialogProps = {
   entry: WorkEntryDto | null;

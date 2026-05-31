@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import { Stack } from "../Stack";
+import { Stack } from "@/shared/ui-kit/Stack";
 
 type InlineProps = {
   children: ReactNode;

@@ -13,13 +13,13 @@ import {
   useDeleteEntryMutation,
   useGetWorkTypesQuery,
   useUpdateEntryMutation,
-} from "../app/api";
-import { DeleteEntryDialog } from "../features/entries/DeleteEntryDialog";
-import { EntryModal } from "../features/entries/EntryModal";
-import { WorkLogEntries } from "../features/entries/WorkLogEntries";
-import { WorkLogFilters } from "../features/entries/WorkLogFilters";
-import { PageLayout } from "../shared/layout/PageLayout";
-import { Stack, Text } from "../shared/ui-kit";
+} from "@/app/api";
+import { DeleteEntryDialog } from "@/features/entries/DeleteEntryDialog";
+import { EntryModal } from "@/features/entries/EntryModal";
+import { WorkLogEntries } from "@/features/entries/WorkLogEntries";
+import { WorkLogFilters } from "@/features/entries/WorkLogFilters";
+import { PageLayout } from "@/shared/layout/PageLayout";
+import { Stack, Text } from "@/shared/ui-kit";
 
 export function WorkLogPage() {
   const [dateFrom, setDateFrom] = useState("");

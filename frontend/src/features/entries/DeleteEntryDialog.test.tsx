@@ -2,8 +2,8 @@ import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UI_TEXT } from "@worklog/shared";
 import { describe, expect, it, vi } from "vitest";
-import { renderWithProviders } from "../../test/render";
-import { SAMPLE_ENTRY } from "../../test/fixtures";
+import { renderWithProviders } from "@/test/render";
+import { SAMPLE_ENTRY } from "@/test/fixtures";
 import { DeleteEntryDialog } from "./DeleteEntryDialog";
 
 const dialogText = UI_TEXT.deleteDialog;

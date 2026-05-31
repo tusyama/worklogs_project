@@ -1,5 +1,5 @@
 import { UI_TEXT } from "@worklog/shared";
-import { Button, Text } from "../../shared/ui-kit";
+import { Button, Text } from "@/shared/ui-kit";
 import { PaginationControls, PaginationRoot } from "./EntriesPagination.styles";
 
 type EntriesPaginationProps = {

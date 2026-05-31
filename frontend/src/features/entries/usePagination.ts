@@ -5,7 +5,7 @@ import {
   type EntrySortOrder,
 } from "@worklog/shared";
 import { useEffect, useMemo, useState } from "react";
-import { useGetEntriesQuery } from "../../app/api";
+import { useGetEntriesQuery } from "@/app/api";
 
 export type EntriesListFilters = {
   dateFrom: string;

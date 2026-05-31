@@ -1,6 +1,6 @@
 import { ENTRY_SORT_VALUES, UI_TEXT, type EntrySortOrder } from "@worklog/shared";
 import { memo, useId } from "react";
-import { Button, Card, Input, Select, Text } from "../../shared/ui-kit";
+import { Button, Card, Input, Select, Text } from "@/shared/ui-kit";
 import {
   AddEntryButtonWrap,
   FilterError,

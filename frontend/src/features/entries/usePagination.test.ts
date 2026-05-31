@@ -1,11 +1,11 @@
 import { DEFAULT_ENTRY_SORT } from "@worklog/shared";
 import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import * as api from "../../app/api";
-import { SAMPLE_ENTRY } from "../../test/fixtures";
+import * as api from "@/app/api";
+import { SAMPLE_ENTRY } from "@/test/fixtures";
 import { usePagination } from "./usePagination";
 
-vi.mock("../../app/api", async (importOriginal) => {
+vi.mock("@/app/api", async (importOriginal) => {
   const actual = await importOriginal<typeof api>();
   return {
     ...actual,

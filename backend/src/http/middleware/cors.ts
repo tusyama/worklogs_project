@@ -1,4 +1,4 @@
-import type { Env } from "../../config/env";
+import type { Env } from "@/config/env";
 import type { RouteHandler } from "./types";
 
 export function withCors(env: Env, handler: RouteHandler): RouteHandler {

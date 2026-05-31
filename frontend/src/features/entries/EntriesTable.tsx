@@ -1,6 +1,6 @@
 import { formatEntryDate, UI_TEXT, type WorkEntryDto } from "@worklog/shared";
-import { useIsMobile } from "../../shared/hooks/useIsMobile";
-import { Button, EmptyState, Inline, Table } from "../../shared/ui-kit";
+import { useIsMobile } from "@/shared/hooks/useIsMobile";
+import { Button, EmptyState, Inline, Table } from "@/shared/ui-kit";
 import { EntriesCardList } from "./EntriesCardList";
 
 type EntriesTableProps = {

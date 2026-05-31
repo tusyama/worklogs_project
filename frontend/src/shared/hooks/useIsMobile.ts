@@ -1,4 +1,4 @@
-import { maxWidthQuery } from "../../theme/media";
+import { maxWidthQuery } from "@/theme/media";
 import { useMediaQuery } from "./useMediaQuery";
 
 export function useIsMobile(): boolean {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-type Gap = keyof typeof import("../../../theme/tokens").tokens.spacing;
+type Gap = keyof typeof import("@/theme/tokens").tokens.spacing;
 
 export const StyledStack = styled.div<{
   $direction: "row" | "column";

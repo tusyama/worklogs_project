@@ -1,5 +1,5 @@
-import { Text } from "../Text";
-import { Stack } from "../Stack";
+import { Text } from "@/shared/ui-kit/Text";
+import { Stack } from "@/shared/ui-kit/Stack";
 
 type EmptyStateProps = {
   title: string;

@@ -1,7 +1,7 @@
 import { API_MESSAGES } from "@worklog/shared";
 import { Error as MongooseError } from "mongoose";
-import { AppError } from "../../errors/app-error";
-import type { Env } from "../../config/env";
+import { AppError } from "@/errors/app-error";
+import type { Env } from "@/config/env";
 import type { RouteHandler } from "./types";
 
 export function withErrorBoundary(env: Env, handler: RouteHandler): RouteHandler {

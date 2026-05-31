@@ -1,5 +1,5 @@
-import { WorkTypeModel } from "../models/work-type.model";
-import { toWorkTypeDto } from "../utils/mappers";
+import { WorkTypeModel } from "@/models/work-type.model";
+import { toWorkTypeDto } from "@/utils/mappers";
 
 export class WorkTypesRepository {
   async findActive() {

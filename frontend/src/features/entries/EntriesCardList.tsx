@@ -1,5 +1,5 @@
 import { formatEntryDate, UI_TEXT, type WorkEntryDto } from "@worklog/shared";
-import { Button, EmptyState } from "../../shared/ui-kit";
+import { Button, EmptyState } from "@/shared/ui-kit";
 import {
   CardList,
   EmptyCardList,

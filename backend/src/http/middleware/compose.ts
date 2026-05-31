@@ -1,4 +1,4 @@
-import type { Env } from "../../config/env";
+import type { Env } from "@/config/env";
 import { withCors } from "./cors";
 import { withErrorBoundary } from "./error-boundary";
 import { withJsonBody } from "./json-body";

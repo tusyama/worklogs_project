@@ -1,5 +1,5 @@
-import type { Env } from "../../config/env";
-import type { createEntriesController } from "../controllers/entries.controller";
+import type { Env } from "@/../config/env";
+import type { createEntriesController } from "@/controllers/entries.controller";
 import type { RouteHandler } from "./middleware/types";
 import { createApiComposer } from "./middleware/compose";
 import { buildContext } from "./request-utils";

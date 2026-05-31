@@ -1,6 +1,6 @@
 import { ENTRY_CREATE_DEFAULTS, formatLocalDateOnly } from "@worklog/shared";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { WORK_TYPE_A, WORK_TYPE_B } from "../../test/fixtures";
+import { WORK_TYPE_A, WORK_TYPE_B } from "@/test/fixtures";
 import { buildCreateDefaults } from "./entry-form.defaults";
 
 describe("buildCreateDefaults", () => {

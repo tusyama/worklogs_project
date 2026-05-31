@@ -1,8 +1,8 @@
 import { UI_TEXT } from "@worklog/shared";
 import { useEffect, useRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { Button } from "../Button";
-import { Text } from "../Text";
+import { Button } from "@/shared/ui-kit/Button";
+import { Text } from "@/shared/ui-kit/Text";
 import { Body, Content, Footer, Header, Overlay } from "./Modal.styles";
 
 const FOCUSABLE_SELECTOR =

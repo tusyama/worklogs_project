@@ -5,8 +5,8 @@ import {
   isPresetUnit,
 } from "@worklog/shared";
 import { useId } from "react";
-import { FieldError, FieldWrapper } from "../../shared/ui-kit/Form/Form.styles";
-import { Input, Label, Select, Stack } from "../../shared/ui-kit";
+import { FieldError, FieldWrapper } from "@/shared/ui-kit/Form/Form.styles";
+import { Input, Label, Select, Stack } from "@/shared/ui-kit";
 
 type UnitFieldProps = {
   unit: string;

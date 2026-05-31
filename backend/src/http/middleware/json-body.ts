@@ -1,5 +1,5 @@
 import { API_MESSAGES } from "@worklog/shared";
-import { AppError } from "../../errors/app-error";
+import { AppError } from "@/errors/app-error";
 import type { RouteHandler } from "./types";
 
 const MAX_BODY = 64 * 1024;

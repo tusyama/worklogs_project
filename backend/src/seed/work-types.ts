@@ -1,5 +1,5 @@
-import { WorkTypeModel } from "../models/work-type.model";
-import { getCache } from "../redis";
+import { WorkTypeModel } from "@/models/work-type.model";
+import { getCache } from "@/redis";
 
 const SEED_WORK_TYPES = [
   { name: "Кладка перегородок", defaultUnit: "м²" },

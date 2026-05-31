@@ -1,5 +1,5 @@
-import type { ICache } from "../redis/cache.types";
-import { WorkTypesRepository } from "../repositories/work-types.repository";
+import type { ICache } from "@/redis/cache.types";
+import { WorkTypesRepository } from "@/repositories/work-types.repository";
 
 export class WorkTypesService {
   constructor(
