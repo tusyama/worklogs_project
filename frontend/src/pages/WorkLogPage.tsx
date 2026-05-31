@@ -18,6 +18,7 @@ import { DeleteEntryDialog } from "../features/entries/DeleteEntryDialog";
 import { EntryModal } from "../features/entries/EntryModal";
 import { WorkLogEntries } from "../features/entries/WorkLogEntries";
 import { WorkLogFilters } from "../features/entries/WorkLogFilters";
+import { PageLayout } from "../shared/layout/PageLayout";
 import { Stack, Text } from "../shared/ui-kit";
 
 export function WorkLogPage() {
@@ -88,7 +89,7 @@ export function WorkLogPage() {
   const canAddEntry = !typesError && workTypes.length > 0;
 
   return (
-    <Stack gap="lg" style={{ maxWidth: 1200, margin: "0 auto", padding: 24 }}>
+    <PageLayout>
       <Stack gap="sm">
         <Text as="h1" variant="title">
           {wl.title}
@@ -149,6 +150,6 @@ export function WorkLogPage() {
         onConfirm={handleDelete}
         loading={deleting}
       />
-    </Stack>
+    </PageLayout>
   );
 }

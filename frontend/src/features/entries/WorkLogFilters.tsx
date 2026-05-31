@@ -1,6 +1,12 @@
 import { ENTRY_SORT_VALUES, UI_TEXT, type EntrySortOrder } from "@worklog/shared";
 import { memo, useId } from "react";
-import { Button, Card, Inline, Input, Select, Stack, Text } from "../../shared/ui-kit";
+import { Button, Card, Input, Select, Text } from "../../shared/ui-kit";
+import {
+  AddEntryButtonWrap,
+  FilterError,
+  FilterField,
+  FiltersLayout,
+} from "./WorkLogFilters.styles";
 
 type WorkLogFiltersProps = {
   dateFrom: string;
@@ -33,8 +39,8 @@ export const WorkLogFilters = memo(function WorkLogFilters({
   return (
     <Card.Root>
       <Card.Body>
-        <Inline gap="md" wrap align="flex-end">
-          <Stack gap="xs" style={{ minWidth: 160 }}>
+        <FiltersLayout>
+          <FilterField>
             <Text as="label" htmlFor={dateFromId} variant="caption">
               {wl.dateFrom}
             </Text>
@@ -44,8 +50,8 @@ export const WorkLogFilters = memo(function WorkLogFilters({
               value={dateFrom}
               onChange={(e) => onDateFromChange(e.target.value)}
             />
-          </Stack>
-          <Stack gap="xs" style={{ minWidth: 160 }}>
+          </FilterField>
+          <FilterField>
             <Text as="label" htmlFor={dateToId} variant="caption">
               {wl.dateTo}
             </Text>
@@ -55,8 +61,8 @@ export const WorkLogFilters = memo(function WorkLogFilters({
               value={dateTo}
               onChange={(e) => onDateToChange(e.target.value)}
             />
-          </Stack>
-          <Stack gap="xs" style={{ minWidth: 160 }}>
+          </FilterField>
+          <FilterField>
             <Text as="label" htmlFor={sortId} variant="caption">
               {wl.sortLabel}
             </Text>
@@ -67,16 +73,14 @@ export const WorkLogFilters = memo(function WorkLogFilters({
                 </option>
               ))}
             </Select>
-          </Stack>
-          <Button $variant="primary" type="button" onClick={onAddEntry} disabled={!canAddEntry}>
-            {wl.addEntry}
-          </Button>
-        </Inline>
-        {dateRangeInvalid ? (
-          <Text variant="body" style={{ color: "#c62828", marginTop: 12 }}>
-            {wl.dateRangeInvalid}
-          </Text>
-        ) : null}
+          </FilterField>
+          <AddEntryButtonWrap>
+            <Button $variant="primary" type="button" onClick={onAddEntry} disabled={!canAddEntry}>
+              {wl.addEntry}
+            </Button>
+          </AddEntryButtonWrap>
+        </FiltersLayout>
+        {dateRangeInvalid ? <FilterError role="alert">{wl.dateRangeInvalid}</FilterError> : null}
       </Card.Body>
     </Card.Root>
   );

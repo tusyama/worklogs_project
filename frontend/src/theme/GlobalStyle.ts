@@ -11,6 +11,8 @@ export const GlobalStyle = createGlobalStyle`
     background: ${({ theme }) => theme.colors.bg};
     color: ${({ theme }) => theme.colors.text};
     line-height: 1.5;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
   }
 
   button, input, select {

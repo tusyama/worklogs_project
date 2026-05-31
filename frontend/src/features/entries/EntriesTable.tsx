@@ -1,5 +1,7 @@
 import { formatEntryDate, UI_TEXT, type WorkEntryDto } from "@worklog/shared";
+import { useIsMobile } from "../../shared/hooks/useIsMobile";
 import { Button, EmptyState, Inline, Table } from "../../shared/ui-kit";
+import { EntriesCardList } from "./EntriesCardList";
 
 type EntriesTableProps = {
   items: WorkEntryDto[];
@@ -8,6 +10,12 @@ type EntriesTableProps = {
 };
 
 export function EntriesTable({ items, onEdit, onDelete }: EntriesTableProps) {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return <EntriesCardList items={items} onEdit={onEdit} onDelete={onDelete} />;
+  }
+
   const t = UI_TEXT.entriesTable;
 
   return (

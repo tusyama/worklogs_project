@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../../theme/media";
 
 export const StyledForm = styled.form`
   display: flex;
@@ -28,4 +29,12 @@ export const ActionsRow = styled.div`
   gap: ${({ theme }) => theme.spacing.sm};
   justify-content: flex-end;
   margin-top: ${({ theme }) => theme.spacing.sm};
+
+  ${media.down("md")} {
+    flex-direction: column-reverse;
+
+    & > button {
+      width: 100%;
+    }
+  }
 `;

@@ -41,6 +41,11 @@ export const tokens = {
   zIndex: {
     modal: 1000,
   },
+  breakpoints: {
+    sm: "480px",
+    md: "768px",
+    lg: "1024px",
+  },
 } as const;
 
 export type Theme = typeof tokens;

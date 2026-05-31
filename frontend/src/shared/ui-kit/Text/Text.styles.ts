@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../../theme/media";
 
 export const StyledText = styled.p<{
   $variant: "body" | "caption" | "title";
@@ -12,4 +13,9 @@ export const StyledText = styled.p<{
   }};
   font-weight: ${({ theme, $variant }) =>
     $variant === "title" ? theme.fontWeights.bold : theme.fontWeights.normal};
+
+  ${media.down("md")} {
+    ${({ theme, $variant }) =>
+      $variant === "title" ? `font-size: ${theme.fontSizes.lg};` : ""}
+  }
 `;

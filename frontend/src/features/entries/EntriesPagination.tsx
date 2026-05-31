@@ -1,5 +1,6 @@
 import { UI_TEXT } from "@worklog/shared";
-import { Button, Inline, Text } from "../../shared/ui-kit";
+import { Button, Text } from "../../shared/ui-kit";
+import { PaginationControls, PaginationRoot } from "./EntriesPagination.styles";
 
 type EntriesPaginationProps = {
   page: number;
@@ -19,9 +20,9 @@ export function EntriesPagination({
   const t = UI_TEXT.workLog;
 
   return (
-    <Inline justify="space-between" align="center" wrap gap="sm">
+    <PaginationRoot>
       <Text variant="caption">{t.paginationSummary(page, totalPages, total)}</Text>
-      <Inline gap="sm">
+      <PaginationControls>
         <Button
           $variant="secondary"
           type="button"
@@ -38,7 +39,7 @@ export function EntriesPagination({
         >
           {t.paginationNext}
         </Button>
-      </Inline>
-    </Inline>
+      </PaginationControls>
+    </PaginationRoot>
   );
 }
